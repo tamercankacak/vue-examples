@@ -10,8 +10,15 @@
           </li>
         </ul>
       </div>
+      <span class="btn-floating halfway-fab indigo">
+        <router-link
+          :to="{ name: 'EditFoodDay', params: { food_day_slug: food.slug } }"
+        >
+          <i class="material-icons edit">edit</i>
+        </router-link>
+      </span>
       <div class="card-action">
-        <span>{{food.date.seconds | moment("dddd,MMMM Do YYYY")}}</span>
+        <span>{{ food.date.seconds | moment("dddd,MMMM Do YYYY") }}</span>
       </div>
     </div>
   </div>
@@ -30,12 +37,14 @@ export default {
   methods: {
     deleteDay(id) {
       // console.log(id);
-      db.collection('foodArray').doc(id).delete().then(()=>{
-        this.foodArray = this.foodArray.filter((f) => {
-        return f.id != id;
-      });
-      })
-      
+      db.collection("foodArray")
+        .doc(id)
+        .delete()
+        .then(() => {
+          this.foodArray = this.foodArray.filter((f) => {
+            return f.id != id;
+          });
+        });
     },
   },
   created() {
